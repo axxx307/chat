@@ -3,10 +3,11 @@ import React from "react";
 import SendIcon from '@material-ui/icons/Send';
 
 const SelectedChatWindow = (props) => {
+  const { chat, messages } = props;
   return (
     <Card>
       <Typography>
-        <p>Chat Name</p>
+        <p>{chat.name}</p>
       </Typography>
       <Divider />
       <div>MainWidnow</div>

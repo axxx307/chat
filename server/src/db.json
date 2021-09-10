@@ -1,5 +1,32 @@
 {
-  "users": [],
-  "chats": [],
-  "messages": []
+  "users": [
+    {
+      "id": 1,
+      "userName": "Mark",
+      "chatIds": ["1"] 
+    },
+    {
+      "id": 2,
+      "userName": "testUser",
+      "chatIds": ["2"]
+    }
+  ],
+  "chats": [
+    {
+      "id": 1,
+      "name": "test",
+      "userIds": ["1", "2"],
+      "messageIds": ["1"]
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "chatId": 1,
+      "fromUserId": "1",
+      "toUserId": "2",
+      "createdAt": 1631269607393,
+      "text": "this a text message, please show it"
+    }
+  ]
 }

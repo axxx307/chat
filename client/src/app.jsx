@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./app.scss";
 import Chats from "./components/chats";
@@ -12,13 +12,25 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
+  const [chats, setChats] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(null);
+
+  const selectChat = (chatId) => {
+      setSelectedChat(chatId)
+  }
 
   useEffect(() => {
     const getUserChats = async () => {
       const chats = await getChats('1');
-      const messagesRequest = chats.data.map(async (chat) => getChatMessages(chat.id));
+      setChats(chats.data || []);
+      const messagesRequest = chats.data.map(async (chat) => ({
+        chatId: chat.id,
+        messages: (await getChatMessages(chat.id)).data
+      }));
       const messages = await Promise.all(messagesRequest);
-      console.log(chats)
+      console.log(messages)
+      setMessages(messages || []);
     }
 
     getUserChats()
@@ -26,7 +38,7 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-     <Chats />
+     <Chats chats={chats} messages={messages} selectChat={selectChat} />
      <ChatWindow/>
     </div>
   );
