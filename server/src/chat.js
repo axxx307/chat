@@ -4,11 +4,10 @@ const users = new Map();
 function Connect(io, socket, db) {
   const sendMessage = (value) => io.sockets.emit('message', value);
   const saveMessage = async (value) => {
-    const { text, fromUserId, toUserId } = value;
+    const { text, fromUserId, chatId } = value;
     const message = {
-      chatId: 'r',
+      chatId,
       text,
-      toUserId,
       fromUserId,
       id: uuidv4(),
       createdAt: Date.now(),

@@ -3,20 +3,29 @@
     {
       "id": 1,
       "userName": "Mark",
-      "chatIds": ["1"] 
+      "chatIds": [
+        "1"
+      ]
     },
     {
       "id": 2,
       "userName": "testUser",
-      "chatIds": ["2"]
+      "chatIds": [
+        "2"
+      ]
     }
   ],
   "chats": [
     {
       "id": 1,
       "name": "test",
-      "userIds": ["1", "2"],
-      "messageIds": ["1"]
+      "userIds": [
+        "1",
+        "2"
+      ],
+      "messageIds": [
+        "1"
+      ]
     }
   ],
   "messages": [
@@ -26,6 +35,14 @@
       "fromUserId": 1,
       "createdAt": 1631269607393,
       "text": "this a text message, please show it"
+    },
+    {
+      "chatId": "r",
+      "text": "test",
+      "fromUserId": 1,
+      "id": "3054b472-203a-47c2-ada4-be64ad072a6a",
+      "createdAt": 1631273580883,
+      "status": "sent"
     }
   ]
 }

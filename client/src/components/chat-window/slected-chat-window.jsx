@@ -5,7 +5,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SendIcon from "@material-ui/icons/Send";
 import { makeStyles } from "@material-ui/core/styles";
 import Message from "./message";
@@ -26,9 +26,25 @@ const useStyles = makeStyles((theme) => ({
 const SelectedChatWindow = (props) => {
   const classes = useStyles();
   const { chat, messages: messagesObject, users, currentUserId } = props;
+  const [messages, setMessages] = useState(messagesObject.messages);
   const [userNames] = useState(formatUserNames(users));
+  const [text, setText] = useState('');
   const [establishedConnection, setEstablishedConnection] = useState(false);
   const [socket, setSocket] = useState(null);
+
+  const receivedMessageHandler = useCallback((message) => {
+    setMessages([...messages, message]);
+  }, [messages])
+
+  const sendMessage = () => {
+    socket.emit('message', {
+      text: text,
+      fromUserId: currentUserId,
+      chatId: chat.id
+    })
+  }
+
+  const handleTextChange = (event) => setText(event.target.value);
 
   useEffect(() => {
     const newSocket = io(`http://${window.location.hostname}:4000/`);
@@ -36,6 +52,17 @@ const SelectedChatWindow = (props) => {
     setEstablishedConnection(true);
     return () => newSocket.close();
   }, []);
+
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+
+    socket.on('message', receivedMessageHandler)
+    return () => {
+      socket.off('message')
+    }
+  }, [socket, receivedMessageHandler])
 
   const getUserName = (fromUserId) => userNames.get(fromUserId);
   return (
@@ -45,7 +72,7 @@ const SelectedChatWindow = (props) => {
       </Typography>
       <Divider />
       <Card className={classes.messageCard}>
-        {messagesObject.messages.map((message) => (
+        {messages.map((message) => (
           <Message
             key={message.id}
             userName={getUserName(message.fromUserId)}
@@ -56,8 +83,8 @@ const SelectedChatWindow = (props) => {
       </Card>
       <Divider />
       <Card >
-        <TextField disabled={!establishedConnection} />
-        <Button disabled={!establishedConnection}>
+        <TextField value={text} onChange={handleTextChange} disabled={!establishedConnection} />
+        <Button disabled={!establishedConnection} onClick={sendMessage}>
           <SendIcon />
         </Button>
       </Card>
