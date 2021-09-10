@@ -7,9 +7,17 @@ const router = jsonServer.router('./src/db.json');
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
+
+server.get('chats/byUser/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  const result = await router.db.find((chat) => chat.userIds.indexOf(userId) > -1);
+  res.json(result);
+});
+
 server.use(router);
-const appServer = server.listen(3000, () => {
-  console.log('Server is running on port 3000');
+const appServer = server.listen(4000, () => {
+  console.log('Server is running on port 4000');
 });
 
 const io = socketio(appServer, {
