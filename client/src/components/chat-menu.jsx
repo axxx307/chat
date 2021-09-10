@@ -17,17 +17,20 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   chatText: {
     display: "flex",
     flexDirection: "column",
+  },
+  selectedChat: {
+    background: "grey",
   },
 }));
 
 const ChatMenu = (props) => {
   const { chats, messages, selectChat } = props;
   const [selectedChat, setSelectedChat] = useState(null);
+  const classes = useStyles();
 
   const handleChatSelect = (chatId) => {
     setSelectedChat(chatId);
@@ -41,14 +44,13 @@ const ChatMenu = (props) => {
 
     const chat = messages.find((message) => message.chatId === chatId);
     if (!chat) {
-      return ''
+      return "";
     }
 
     const lastMessageText = chat.messages[chat.messages.length - 1].text || "";
     return lastMessageText.slice(0, 10);
   };
 
-  const classes = useStyles();
   return (
     <Drawer
       className={classes.drawer}
@@ -63,7 +65,9 @@ const ChatMenu = (props) => {
       <List>
         {chats &&
           chats.map((chat) => (
-            <>
+            <div
+              className={selectedChat === chat.id ? classes.selectedChat : ""}
+            >
               <ListItem
                 className={classes.chatText}
                 button
@@ -74,7 +78,7 @@ const ChatMenu = (props) => {
                 <ListItemText primary={`"${filterLastMessageText(chat.id)}"`} />
               </ListItem>
               <Divider />
-            </>
+            </div>
           ))}
       </List>
     </Drawer>

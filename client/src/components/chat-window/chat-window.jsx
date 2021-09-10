@@ -30,7 +30,14 @@ const ChatWindow = (props) => {
           </p>
         </Typography>
       )}
-      {selectedChat && <SelectedChatWindow chat={selectedChat} messages={messages} users={users} currentUserId={currentUserId} />}
+      {selectedChat && (
+        <SelectedChatWindow
+          chat={selectedChat}
+          messages={messages}
+          users={users}
+          currentUserId={currentUserId}
+        />
+      )}
     </main>
   );
 };

@@ -4,7 +4,14 @@ import "./app.scss";
 import ChatMenu from "./components/chat-menu";
 import ChatWindow from "./components/chat-window/chat-window";
 import { getChatMessages, getChats, getUsers } from "./services/requests";
-import { Card, Dialog, DialogContent, DialogTitle, MenuItem, Modal, Select } from "@material-ui/core";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -29,27 +36,27 @@ const App = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-  }
-  
+  };
+
   const handleUserSelected = (event) => {
     setCurrentUserId(event.target.value);
     handleModalClose();
-  }
+  };
 
   useEffect(() => {
     const getAllUsers = async () => {
       const users = await getUsers(currentUserId);
       setUsers(users.data);
-    }
+    };
 
     getAllUsers();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (!currentUserId) {
       return;
     }
-    
+
     const getData = async () => {
       const chats = await getChats(currentUserId);
       setChats(chats.data || []);
@@ -67,14 +74,15 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Dialog
-        open={isModalOpen}
-        onClose={handleModalClose}
-      >
-        <DialogTitle id="simple-dialog-title">Please select predefined user to send messages:</DialogTitle>
+      <Dialog open={isModalOpen} onClose={handleModalClose}>
+        <DialogTitle>
+          Please select predefined user to send messages:
+        </DialogTitle>
         <DialogContent>
           <Select value={currentUserId} onChange={handleUserSelected}>
-            {users.map(user => <MenuItem value={user.id}>{user.userName}</MenuItem>)}
+            {users.map((user) => (
+              <MenuItem value={user.id}>{user.userName}</MenuItem>
+            ))}
           </Select>
         </DialogContent>
       </Dialog>

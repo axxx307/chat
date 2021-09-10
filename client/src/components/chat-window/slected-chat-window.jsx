@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import SendIcon from "@material-ui/icons/Send";
 import { makeStyles } from "@material-ui/core/styles";
 import Message from "./message";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 
 const formatUserNames = (users) =>
   users.reduce((acc, user) => {
@@ -28,22 +28,25 @@ const SelectedChatWindow = (props) => {
   const { chat, messages: messagesObject, users, currentUserId } = props;
   const [messages, setMessages] = useState(messagesObject.messages);
   const [userNames] = useState(formatUserNames(users));
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [establishedConnection, setEstablishedConnection] = useState(false);
   const [socket, setSocket] = useState(null);
 
-  const receivedMessageHandler = useCallback((message) => {
-    setMessages([...messages, message]);
-  }, [messages])
+  const receivedMessageHandler = useCallback(
+    (message) => {
+      setMessages([...messages, message]);
+    },
+    [messages]
+  );
 
   const sendMessage = () => {
-    socket.emit('message', {
+    socket.emit("message", {
       text: text,
       fromUserId: currentUserId,
-      chatId: chat.id
-    })
-    setText('');
-  }
+      chatId: chat.id,
+    });
+    setText("");
+  };
 
   const handleTextChange = (event) => setText(event.target.value);
 
@@ -59,11 +62,11 @@ const SelectedChatWindow = (props) => {
       return;
     }
 
-    socket.on('message', receivedMessageHandler)
+    socket.on("message", receivedMessageHandler);
     return () => {
-      socket.off('message')
-    }
-  }, [socket, receivedMessageHandler])
+      socket.off("message");
+    };
+  }, [socket, receivedMessageHandler]);
 
   const getUserName = (fromUserId) => userNames.get(fromUserId);
   return (
@@ -83,8 +86,12 @@ const SelectedChatWindow = (props) => {
         ))}
       </Card>
       <Divider />
-      <Card >
-        <TextField value={text} onChange={handleTextChange} disabled={!establishedConnection} />
+      <Card>
+        <TextField
+          value={text}
+          onChange={handleTextChange}
+          disabled={!establishedConnection}
+        />
         <Button disabled={!establishedConnection} onClick={sendMessage}>
           <SendIcon />
         </Button>

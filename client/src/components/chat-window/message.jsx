@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: (isSender) => (isSender ? "flex-end" : "flex-start"),
   },
 }));
+
 const Message = (props) => {
   const { userName, text, isSender } = props;
 
