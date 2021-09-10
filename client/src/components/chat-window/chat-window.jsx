@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import SelectedChatWindow from "./slected-chat-window";
 
 const useStyles = makeStyles((theme) => ({
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ChatWindow = (props) => {
-  const { selectedChat } = props;
+  const { selectedChat, messages, users, currentUserId } = props;
 
   const classes = useStyles();
   return (
@@ -31,7 +30,7 @@ const ChatWindow = (props) => {
           </p>
         </Typography>
       )}
-      {selectedChat && <SelectedChatWindow />}
+      {selectedChat && <SelectedChatWindow chat={selectedChat} messages={messages} users={users} currentUserId={currentUserId} />}
     </main>
   );
 };

@@ -2,7 +2,6 @@ const uuidv4 = require('uuid').v4;
 
 const users = new Map();
 function Connect(io, socket, db) {
-  console.log('connect');
   const sendMessage = (value) => io.sockets.emit('message', value);
   const saveMessage = async (value) => {
     const { text, fromUserId, toUserId } = value;

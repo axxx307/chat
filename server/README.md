@@ -32,7 +32,6 @@ Type "npm start" in the terminal
 	"id": string;
 	"chatId": string;
 	"fromUserId": string;
-	"toUserId": string;
 	"createdAt": number;
 	"status": string; // sent, delivered, read
 	"text": string
