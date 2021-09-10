@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
     width: 250,
     margin: 20,
-    background: (isSender) => (isSender ? "greenyellow" : "grey"),
+    background: (isSender) => (isSender ? "greenyellow" : "deepskyblue"),
     alignSelf: (isSender) => (isSender ? "flex-end" : "flex-start"),
   },
 }));

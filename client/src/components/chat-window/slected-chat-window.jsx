@@ -54,7 +54,9 @@ const SelectedChatWindow = (props) => {
     const newSocket = io(`http://${window.location.hostname}:4000/`);
     setSocket(newSocket);
     setEstablishedConnection(true);
-    return () => newSocket.close();
+    return () => {
+      newSocket.close();
+    }
   }, []);
 
   useEffect(() => {
@@ -67,6 +69,10 @@ const SelectedChatWindow = (props) => {
       socket.off("message");
     };
   }, [socket, receivedMessageHandler]);
+
+  useEffect(() => {
+    setMessages(messagesObject.messages)
+  }, [messagesObject])
 
   const getUserName = (fromUserId) => userNames.get(fromUserId);
   return (

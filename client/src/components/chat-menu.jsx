@@ -47,6 +47,10 @@ const ChatMenu = (props) => {
       return "";
     }
 
+    if (chat.messages.length === 0) {
+      return '';
+    }
+
     const lastMessageText = chat.messages[chat.messages.length - 1].text || "";
     return lastMessageText.slice(0, 10);
   };

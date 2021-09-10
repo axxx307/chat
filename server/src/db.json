@@ -26,6 +26,15 @@
       "messageIds": [
         "1"
       ]
+    },
+    {
+      "id": 2,
+      "name": "another chat",
+      "userIds": [
+        "1",
+        "2"
+      ],
+      "messageIds": []
     }
   ],
   "messages": [
@@ -35,30 +44,6 @@
       "fromUserId": 1,
       "createdAt": 1631269607393,
       "text": "this a text message, please show it"
-    },
-    {
-      "chatId": "r",
-      "text": "test",
-      "fromUserId": 1,
-      "id": "3054b472-203a-47c2-ada4-be64ad072a6a",
-      "createdAt": 1631273580883,
-      "status": "sent"
-    },
-    {
-      "chatId": "r",
-      "text": "test",
-      "fromUserId": 1,
-      "id": "0003ac39-bcb9-4fac-a0d8-1e700cef722d",
-      "createdAt": 1631274231215,
-      "status": "sent"
-    },
-    {
-      "chatId": "r",
-      "text": "whats up?",
-      "fromUserId": 2,
-      "id": "d142ab35-d450-4c3d-9f60-703e9b073f7d",
-      "createdAt": 1631274236449,
-      "status": "sent"
     }
   ]
 }
