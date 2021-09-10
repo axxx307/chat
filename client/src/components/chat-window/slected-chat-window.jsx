@@ -42,6 +42,7 @@ const SelectedChatWindow = (props) => {
       fromUserId: currentUserId,
       chatId: chat.id
     })
+    setText('');
   }
 
   const handleTextChange = (event) => setText(event.target.value);
