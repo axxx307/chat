@@ -1,7 +1,6 @@
 const uuidv4 = require('uuid').v4;
 
-const users = new Map();
-function Connect(io, socket, db) {
+function connect(io, socket, db) {
   const sendMessage = (value) => io.sockets.emit('message', value);
   const saveMessage = async (value) => {
     const { text, fromUserId, chatId } = value;
@@ -24,7 +23,7 @@ function Connect(io, socket, db) {
 }
 
 function Chat(io, db) {
-  io.on('connection', (socket) => new Connect(io, socket, db));
+  io.on('connection', (socket) => connect(io, socket, db));
 }
 
 module.exports = Chat;
